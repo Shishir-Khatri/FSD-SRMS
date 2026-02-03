@@ -1,0 +1,47 @@
+{% extends "layout/base.twig" %}
+
+{% block title %}Edit Admin{% endblock %}
+
+{% block content %}
+<div class="sms-grid mb-section justify-center">
+    <div class="sms-col sms-col-half">
+        <div class="content-card">
+            <div class="card-header-bar bg-primary-header">
+                <h4 class="card-header-title">Edit Admin</h4>
+            </div>
+            <div class="card-content">
+                {% if error %}
+                    <div class="sms-notification notification-danger">{{ error }}</div>
+                {% endif %}
+                
+                <form method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-input" name="username" value="{{ admin.username }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" name="email" value="{{ admin.email }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="is_active" {% if admin.is_active %}checked{% endif %} class="checkbox-input">
+                            <span class="form-label checkbox-text">Active Status</span>
+                        </label>
+                        <small class="text-muted checkbox-hint">Inactive admins cannot log in.</small>
+                    </div>
+                    
+                    <div class="flex-between mt-section">
+                        <a href="admins.php" class="btn-action btn-secondary">Cancel</a>
+                        <button type="submit" class="btn-action btn-primary">Update Admin</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

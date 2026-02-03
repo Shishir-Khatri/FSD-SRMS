@@ -1,0 +1,37 @@
+{% extends "layout/base.twig" %}
+
+{% block title %}Login{% endblock %}
+
+{% set hide_nav = true %}
+
+{% block content %}
+<div class="sms-grid mt-section justify-center">
+    <div class="sms-col sms-col-third">
+        <div class="content-card">
+            <div class="card-header-bar bg-primary-header justify-center">
+                <h4 class="card-header-title">Login</h4>
+            </div>
+            <div class="card-content">
+                {% if error %}
+                    <div class="sms-notification notification-danger">{{ error }}</div>
+                {% endif %}
+                
+                <form method="POST" action="login.php">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <div class="form-group">
+                        <label for="identifier" class="form-label">Username or Email</label>
+                        <input type="text" class="form-input" id="identifier" name="identifier" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-input" id="password" name="password" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn-action btn-primary">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

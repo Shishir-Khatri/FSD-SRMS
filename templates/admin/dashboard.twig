@@ -1,0 +1,83 @@
+{% extends "layout/base.twig" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Dashboard <span class="page-subtitle">{{ session.role_name }} Panel</span></h2>
+</div>
+
+<div class="sms-grid mb-section">
+    <div class="sms-col {% if session.role == 1 %}sms-col-third{% else %}sms-col-half{% endif %}">
+        <div class="widget-card widget-primary">
+            <div class="widget-title">Total Students</div>
+            <div class="widget-value">{{ total_students }}</div>
+        </div>
+    </div>
+    {% if session.role == 1 %}
+    <div class="sms-col sms-col-third">
+        <div class="widget-card widget-success">
+            <div class="widget-title">Total Admins</div>
+            <div class="widget-value">{{ total_admins }}</div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="sms-col {% if session.role == 1 %}sms-col-third{% else %}sms-col-half{% endif %}">
+        <div class="widget-card widget-info">
+            <div class="widget-title">Quick Actions</div>
+            <div class="widget-actions">
+                <a href="add.php?type=student" class="btn-action btn-accent-light">Add Student</a>
+                {% if session.role == 1 %}
+                <a href="add.php?type=admin" class="btn-action btn-accent-light">Add Admin</a>
+                {% endif %}
+                <a href="attendance.php" class="btn-action btn-accent-light">Mark Attendance</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-card">
+    <div class="card-header-bar">
+        <h5 class="card-header-title">Recent Students</h5>
+        <a href="search.php" class="btn-action btn-outline primary btn-sm">View All</a>
+    </div>
+    <div class="card-content p-0">
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Academic Year</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in recent_students %}
+                    <tr>
+                        <td>{{ student.first_name }} {{ student.last_name }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.contact }}</td>
+                        <td>{{ student.academic_year }}</td>
+                        <td class="text-center">
+                            <div class="flex-center gap-sm justify-center">
+                                <a href="edit.php?id={{ student.id }}" class="btn-action btn-sm btn-secondary">Edit</a>
+                                <a href="view_attendance.php?id={{ student.id }}" class="btn-action btn-sm btn-outline info">Attendance</a>
+                                {% if session.role == 1 or session.role == 2 %}
+                                <a href="delete.php?id={{ student.id }}" class="btn-action btn-sm btn-outline danger" onclick="return confirm('Are you sure?')">Delete</a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="empty-state">No students found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

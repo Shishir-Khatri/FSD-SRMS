@@ -27,7 +27,7 @@ A production-ready Student Record Management System built with PHP and MySQL.
     ```
 3.  **Database Setup**:
     *   Create a database named `sms_db`.
-    *   Import sql file to database.
+    *   Import sql file to the database.
     *   Configure `config/db.php` if your credentials differ from the defaults (User: `root`, Pass: ``).
 
 4.  **Run**:

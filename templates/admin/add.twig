@@ -1,0 +1,88 @@
+{% extends "layout/base.twig" %}
+
+{% block title %}Add {{ type|capitalize }}{% endblock %}
+
+{% block content %}
+<div class="sms-grid mb-section justify-center">
+    <div class="sms-col sms-col-two-thirds">
+        <div class="content-card">
+            <div class="card-header-bar bg-primary-header">
+                <h4 class="card-header-title">Add New {{ type|capitalize }}</h4>
+            </div>
+            <div class="card-content">
+                {% if error %}
+                    <div class="sms-notification notification-danger">{{ error }}</div>
+                {% endif %}
+                
+                <form method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    
+                    <h5 class="mb-section section-divider">Account Details</h5>
+                    <div class="sms-grid mb-section">
+                        <div class="sms-col sms-col-half">
+                            <div class="form-group">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-input" name="username" required>
+                            </div>
+                        </div>
+                        <div class="sms-col sms-col-half">
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" name="email" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if type == 'student' %}
+                    <h5 class="mb-section section-divider mt-md">Student Details</h5>
+                    <div class="sms-grid mb-section">
+                        <div class="sms-col sms-col-half">
+                            <div class="form-group">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-input" name="first_name" required>
+                            </div>
+                        </div>
+                        <div class="sms-col sms-col-half">
+                            <div class="form-group">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-input" name="last_name" required>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="sms-grid mb-section">
+                        <div class="sms-col sms-col-half">
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" class="form-input" name="dob" required>
+                            </div>
+                        </div>
+                        <div class="sms-col sms-col-half">
+                            <div class="form-group">
+                                <label class="form-label">Contact Number</label>
+                                <input type="text" class="form-input" name="contact" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-input" name="address" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Academic Year</label>
+                        <select class="form-input" name="academic_year">
+                            <option value="2023-2024">2023-2024</option>
+                            <option value="2024-2025">2024-2025</option>
+                        </select>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="flex-between mt-section">
+                        <a href="dashboard.php" class="btn-action btn-secondary">Cancel</a>
+                        <button type="submit" class="btn-action btn-primary">Save {{ type|capitalize }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
